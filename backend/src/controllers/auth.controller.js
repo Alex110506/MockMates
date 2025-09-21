@@ -108,7 +108,7 @@ export async function onboard(req,res) {
         const userId=req.user._id
         const {fullName,bio,occupation,city,country}=req.body
         if(!fullName || !bio || !occupation || !city || !country){
-            return res.status(400).json({message:"All fields are reqquired"})
+            return res.status(400).json({message:"All fields are required"})
         }
 
         const updatedUser=await User.findByIdAndUpdate(userId,{
