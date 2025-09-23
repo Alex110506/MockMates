@@ -1,20 +1,27 @@
 import FriendRequest from "../models/FriendRequest.js";
 import User from "../models/User.js";
+import mongoose from "mongoose";
 
 export async function getRecommendedUsers(req,res) {
     try {
         const currentUserId=req.user.id;
         const currentUser=req.user
-        const limit=20;
+        const limit=12;
 
-        const recommendedUsers=await User.find({
-            $and:[
-                {_id:{$ne:currentUserId}},//exclude current user
-                {_id:{$nin:currentUser.friends}},//exclude the friends
-                {isOnboarded:true},
-                {country:currentUser.country}
-            ]
-        }).limit(limit);
+        const recommendedUsers = await User.aggregate([
+        {
+            $match: {
+                $and: [
+                    { _id: { $ne: new mongoose.Types.ObjectId(currentUserId) } },
+                    { _id: { $nin: currentUser.friends } },
+                    { isOnboarded: true },
+                    { country: currentUser.country }
+                ]
+            }
+        },
+        { $sample: { size: limit } }
+        ]);
+        
         res.status(200).json(recommendedUsers)
     } catch (error) {
         console.error("Error in getRecommendedUsers",error.message)
@@ -38,6 +45,7 @@ export async function sendFriendRequest(req,res) {
     try {
         const myId=req.user.id;
         const {id:recipientId}=req.params
+        console.log(recipientId,"asd");
 
         if(myId==recipientId){
             return res.status(400).json({message:"You can't send friend request to yourself"})
@@ -128,7 +136,7 @@ export async function getFriendRequests(req,res) {
     }
 }
 
-export async function getOutgoingFriendRequests(params) {
+export async function getOutgoingFriendRequests(req,res) {
     try {
         const outgoingRequests=await FriendRequest.find({
             sender:req.user.id,

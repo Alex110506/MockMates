@@ -12,7 +12,6 @@ router.post("/onboarding",protectedRoute,onboard)
 
 //check if user is logged in or not
 router.get("/me",protectedRoute,(req,res)=>{
-    console.log(req.user)
     res.status(200).json({success:true,user:req.user})
 })
 
