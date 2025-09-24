@@ -32,7 +32,7 @@ export async function getRecommendedUsers(req,res) {
 export async function getMyFriends(req,res) {
     try {
         const user=await User.findById(req.user.id).select("friends")
-        .populate("friends","fullName profilePic occupation country");
+        .populate("friends","fullName profilePic occupation country city");
 
         res.status(200).json(user.friends)
     } catch (error) {
@@ -122,12 +122,12 @@ export async function getFriendRequests(req,res) {
         const incomingReqs=await FriendRequest.find({
             recipient:req.user.id,
             status:"pending"
-        }).populate("sender","fullname profilePic occupation country")
+        }).populate("sender","fullName profilePic occupation country")
 
         const acceptedReqs=await FriendRequest.find({
             sender:req.user.id,
             status:"accepted"
-        }).populate("recipient","fullname profilePic")
+        }).populate("recipient","fullName profilePic")
 
         res.status(200).json({incomingReqs,acceptedReqs})
     } catch (error) {
