@@ -6,7 +6,7 @@ import useLogout from "../hooks/useLogout";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 
-const Navbar = ({showSidebar}) => {
+const Navbar = ({ showSidebar }) => {
   const { authUser } = useAuthUser();
   const location = useLocation();
   const isChatPage = location.pathname?.startsWith("/chat");
@@ -17,19 +17,20 @@ const Navbar = ({showSidebar}) => {
   return (
     <>
       {/* Navbar */}
-      <nav className="bg-base-200 border-b border-base-300 sticky top-0 z-30 h-16 flex items-center">
+      <nav className="bg-base-200 border-b border-base-300 sticky top-0 z-20 h-16 flex items-center">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between w-full">
-            {showSidebar && (<button
-              className="btn btn-ghost btn-circle lg:hidden"
-              onClick={() => setIsSidebarOpen(true)}
-            >
-              <Menu className="h-6 w-6 text-base-content opacity-70" />
-            </button>) }
-            {/* Menu button - visible only on small screens */}
-            
+            {/* Sidebar toggle button - mobile only */}
+            {showSidebar && (
+              <button
+                className="btn btn-ghost btn-circle lg:hidden"
+                onClick={() => setIsSidebarOpen(true)}
+              >
+                <Menu className="h-6 w-6 text-base-content opacity-70" />
+              </button>
+            )}
 
-            {/* LOGO - only in chat page */}
+            {/* Logo - only on chat page */}
             {isChatPage && (
               <div className="pl-5">
                 <Link to="/" className="flex items-center gap-2.5">
@@ -42,7 +43,7 @@ const Navbar = ({showSidebar}) => {
             )}
 
             <div className="flex items-center gap-3 sm:gap-4 ml-auto">
-              <Link to={"/notifications"}>
+              <Link to="/notifications">
                 <button className="btn btn-ghost btn-circle">
                   <Bell className="h-6 w-6 text-base-content opacity-70" />
                 </button>
@@ -67,19 +68,26 @@ const Navbar = ({showSidebar}) => {
         </div>
       </nav>
 
-      {/* Sidebar overlay (mobile) */}
+      {/* Desktop sidebar (on top of navbar) */}
+      {showSidebar && (
+        <div className="hidden lg:block w-64 fixed left-0 top-0 h-screen bg-base-200 border-r border-base-300 z-30">
+          <Sidebar />
+        </div>
+      )}
+
+      {/* Mobile sidebar overlay */}
       {isSidebarOpen && (
-        <div className="fixed inset-0 z-40 flex">
+        <div className="fixed inset-0 z-40 flex lg:hidden">
           {/* Sidebar itself */}
           <div className="w-64 bg-base-200 border-r border-base-300 h-full">
             <Sidebar />
           </div>
 
-          {/* Overlay background - click to close */}
+          {/* Overlay background */}
           <div
             className="flex-1 bg-black bg-opacity-50"
             onClick={() => setIsSidebarOpen(false)}
-          ></div>
+          />
         </div>
       )}
     </>

@@ -1,21 +1,22 @@
-import React from 'react'
-import Sidebar from './Sidebar'
-import Navbar from './Navbar'
+import React from "react";
+import Navbar from "./Navbar";
 
-const Layout = ({children,showSidebar}) => {
+const Layout = ({ children, showSidebar }) => {
   return (
-    <div className='min-h-screen'>
-        <div className='flex'>
-            
-            <div className='flex-1 flex flex-col'>
-                <Navbar showSidebar={showSidebar}/>
-                <main className='flex-1 overflow-y-auto'>
-                    {children}
-                </main>
-            </div>
-        </div>
+    <div className="min-h-screen flex flex-col">
+      <Navbar showSidebar={showSidebar} />
+      <div className={`flex flex-1`}>
+        {/* On desktop, add left margin for sidebar */}
+        <main
+          className={`flex-1 overflow-y-auto transition-all duration-200 ${
+            showSidebar ? "lg:ml-64" : ""
+          }`}
+        >
+          {children}
+        </main>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
