@@ -17,6 +17,7 @@ import {
 
 import "@stream-io/video-react-sdk/dist/css/styles.css";
 import toast from 'react-hot-toast'
+import TextEditor from '../components/TextEditor'
 
 const STREAM_API_KEY=import.meta.env.VITE_STREAM_API_KEY
 
@@ -75,7 +76,7 @@ const CallPage = () => {
 
   return (
     <div className='h-screen flex flex-col items-center justify-center'>
-      <div className='relative'>
+      <div className='relative grid grid-cols-2 gap-4 p-4'>
         {client && call ? (
           <StreamVideo client={client}>
             <StreamCall call={call}>
@@ -87,6 +88,9 @@ const CallPage = () => {
             <p>Could not initialize call. Please refresh or try again later.</p>
           </div>
         )}
+        <div className='overflow-y-scroll h-[60vh] border border-white'>
+          <TextEditor/>
+        </div>
       </div>
     </div>
   )

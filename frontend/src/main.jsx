@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import "stream-chat-react/css/v2/index.css"
 import './index.css'
+import "./textEditor.css"
 import App from './App.jsx'
 
 
