@@ -4,6 +4,9 @@ import "stream-chat-react/css/v2/index.css"
 import './index.css'
 import "./textEditor.css"
 import App from './App.jsx'
+import hljs from "highlight.js"
+
+export default hljs
 
 
 import { BrowserRouter } from 'react-router-dom'

@@ -19,6 +19,7 @@ import "@stream-io/video-react-sdk/dist/css/styles.css";
 import toast from 'react-hot-toast'
 import TextEditor from '../components/TextEditor'
 
+
 const STREAM_API_KEY=import.meta.env.VITE_STREAM_API_KEY
 
 const CallPage = () => {
@@ -88,7 +89,7 @@ const CallPage = () => {
             <p>Could not initialize call. Please refresh or try again later.</p>
           </div>
         )}
-        <div className='overflow-y-scroll h-[60vh] border border-white'>
+        <div className='overflow-y-scroll h-[60vh] rounded-xl border border-gray-400'>
           <TextEditor/>
         </div>
       </div>
