@@ -56,6 +56,18 @@ Key principles:
 MockMates aims to **make interview preparation social, interactive, and engaging**.  
 Students can practice technical interviews together, share code, communicate seamlessly, and build confidence through peer learning.
 
+## ⚡ Start the App
+
+Clone the repository, then run the following commands:
+
+```bash
+# Build both frontend and backend
+npm run build
+
+# Start the backend server
+npm run start
+```
+
 ---
 
 ## 🧾 License
